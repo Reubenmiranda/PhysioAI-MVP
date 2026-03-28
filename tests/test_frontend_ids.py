@@ -26,6 +26,11 @@ class IDCollector(HTMLParser):
 
 def get_ids_and_classes(filename):
     path = os.path.join(FRONTEND, filename)
+    if not os.path.isfile(path):
+        raise FileNotFoundError(
+            f"Frontend HTML file not found: {path}. "
+            "Ensure 'frontend/' is present relative to the project root."
+        )
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
     parser = IDCollector()
