@@ -111,23 +111,23 @@
 <form id="signup-form" class="w-full space-y-6">
 <!-- Full Name -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Full Name</label>
+<label for="name" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Full Name</label>
 <input id="name" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="Enter your full name" type="text"/>
 </div>
 <!-- Email -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Email</label>
+<label for="email" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Email</label>
 <input id="email" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="name@example.com" type="email"/>
 </div>
 <div class="grid grid-cols-2 gap-4">
 <!-- Age -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Age</label>
+<label for="age" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Age</label>
 <input id="age" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" max="120" min="13" placeholder="Years" type="number"/>
 </div>
 <!-- Gender -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Gender</label>
+<label for="gender" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Gender</label>
 <select id="gender" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body appearance-none cursor-pointer">
 <option disabled="" selected="" value="">Select</option>
 <option value="Male">Male</option>
@@ -139,15 +139,14 @@
 </div>
 <!-- Password -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Password</label>
+<label for="password" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Password</label>
 <div class="relative">
 <input id="password" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="••••••••" type="password"/>
-<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline/60 cursor-pointer text-xl" data-icon="visibility">visibility</span>
 </div>
 </div>
 <!-- Confirm Password -->
 <div class="space-y-1.5">
-<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Confirm Password</label>
+<label for="confirm" class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Confirm Password</label>
 <div class="relative">
 <input id="confirm" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="••••••••" type="password"/>
 </div>
