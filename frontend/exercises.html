@@ -1,40 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>PhysioAI - Select Exercises</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Exercise Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-dim": "#325673",
+              "tertiary-fixed-dim": "#9bc0e0",
+              "background": "#f7f9fe",
+              "on-surface-variant": "#576068",
+              "primary": "#006a71",
+              "surface-variant": "#dae3ed",
+              "inverse-on-surface": "#9a9da2",
+              "on-tertiary-fixed-variant": "#294e6a",
+              "tertiary": "#3f637f",
+              "error": "#a83836",
+              "primary-dim": "#005d63",
+              "secondary-dim": "#3f575a",
+              "on-error": "#fff7f6",
+              "primary-fixed": "#96f1fa",
+              "on-surface": "#2b333b",
+              "on-secondary-container": "#3d5658",
+              "on-secondary-fixed": "#2b4346",
+              "surface": "#f7f9fe",
+              "on-secondary": "#e7fdff",
+              "on-primary-container": "#005b61",
+              "error-container": "#fa746f",
+              "primary-fixed-dim": "#88e3eb",
+              "surface-dim": "#d2dbe5",
+              "secondary-fixed": "#cce8ea",
+              "secondary": "#4a6366",
+              "secondary-fixed-dim": "#bed9dc",
+              "inverse-primary": "#99f4fd",
+              "outline-variant": "#aab3bc",
+              "tertiary-fixed": "#a9cdef",
+              "error-dim": "#67040d",
+              "secondary-container": "#cce8ea",
+              "on-tertiary-container": "#1f4561",
+              "on-primary": "#e7fdff",
+              "outline": "#737c84",
+              "on-tertiary": "#f6f9ff",
+              "on-tertiary-fixed": "#03314c",
+              "on-error-container": "#6e0a12",
+              "surface-tint": "#006a71",
+              "on-primary-fixed-variant": "#00666d",
+              "inverse-surface": "#0a0f12",
+              "surface-container": "#e8eef6",
+              "surface-container-high": "#e2e9f1",
+              "on-primary-fixed": "#00474c",
+              "tertiary-container": "#a9cdef",
+              "on-background": "#2b333b",
+              "on-secondary-fixed-variant": "#476062",
+              "surface-container-highest": "#dae3ed",
+              "surface-container-low": "#eff4fb",
+              "primary-container": "#96f1fa",
+              "surface-bright": "#f7f9fe",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tonal-transition {
+        background: linear-gradient(180deg, rgba(247, 249, 254, 0.9) 0%, rgba(247, 249, 254, 0.5) 100%);
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #006a71 0%, #005d63 100%);
+      }
+      .ghost-border {
+        border: 1px solid rgba(170, 179, 188, 0.15);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #dae3ed;
+        border-radius: 10px;
+      }
+
+      /* Exercise catalog dynamic elements (populated by exercises.js) */
+      .pa-exercise-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .pa-exercise-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        border: 2px solid transparent;
+        border-left: 4px solid transparent;
+        transition: all 0.2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+      .pa-exercise-item:hover {
+        background: #eff4fb;
+      }
+      .pa-exercise-item.selected {
+        border-left: 4px solid #006a71;
+        background: #eff4fb;
+      }
+      .pa-exercise-item input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        accent-color: #006a71;
+        flex-shrink: 0;
+      }
+      .pa-exercise-title {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #2b333b;
+      }
+      .pa-exercise-item.selected .pa-exercise-title {
+        color: #006a71;
+      }
+      .pa-exercise-desc {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        color: #576068;
+        margin-top: 0.2rem;
+        line-height: 1.4;
+      }
+      .pa-message {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        min-height: 1.25rem;
+      }
+      .pa-message.error {
+        color: #a83836;
+      }
+      .pa-message.success {
+        color: #006a71;
+      }
+    </style>
 </head>
-<body>
-  <header class="pa-header">
-    <h1>PhysioAI</h1>
-    <p class="pa-subtitle">Select 5 exercises to begin</p>
-    <div class="pa-form-actions">
-      <button id="session-history-btn" class="pa-link-button">Session History</button>
-    </div>
-  </header>
-
-  <main class="pa-main">
-    <section class="pa-card">
-      <div class="pa-card-header">
-        <h2>Exercise Catalog</h2>
-        <p id="exercise-helper">Select exactly 5 exercises to continue.</p>
-      </div>
-
-      <div id="exercise-list" class="pa-exercise-list">
-        <!-- Populated by exercises.js -->
-      </div>
-
-      <div class="pa-form-actions pa-form-actions-right">
-        <button id="start-session-btn" disabled>Start Session</button>
-      </div>
-
-      <p id="exercises-message" class="pa-message"></p>
-    </section>
-  </main>
-
-  <script src="js/exercises.js"></script>
-</body>
-</html>
-
+<body class="bg-background font-body text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm shadow-teal-900/5">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-teal-800 dark:text-teal-200 font-headline">PhysioAI</div>
+<button id="session-history-btn" class="text-teal-700 font-inter text-sm font-semibold hover:bg-teal-50/50 transition-colors px-4 py-2 rounded-lg border border-teal-200">Session History</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Header Section -->
+<section class="mb-8">
+<h1 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-2">Select 5 exercises to begin your session</h1>
+<p id="exercise-helper" class="text-on-surface-variant text-base font-inter">Selected 0 / 5 exercises.</p>
+</section>
+<!-- Exercise List (populated by exercises.js) -->
+<div id="exercise-list" class="pa-exercise-list mb-10"></div>
+<!-- Actions Bar -->
+<div class="flex flex-col items-end gap-3">
+<button id="start-session-btn" disabled class="signature-gradient text-on-primary px-8 py-3 rounded-xl font-label text-sm font-bold tracking-wider uppercase shadow-lg shadow-primary/20 active:scale-95 transition-transform flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100">
+<span>Start Session</span>
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+<p id="exercises-message" class="pa-message"></p>
+</div>
+</main>
+<script src="js/exercises.js"></script>
+</body></html>
