@@ -101,7 +101,7 @@ def root():
     return jsonify({
         "name": "PhysioAI Backend",
         "version": "2.2.0",
-        "status": "Phase B - MongoDB Database Integration",
+        "status": "Phase C - Supabase Database Integration",
         "endpoints": {
             "health": "/ping",
             "auth": ["/register", "/login", "/logout"],
