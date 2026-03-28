@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("history-container");
+  const container = document.getElementById("history-list");
   const msgEl = document.getElementById("history-message");
 
   function setText(el, text) {

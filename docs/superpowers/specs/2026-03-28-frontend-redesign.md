@@ -37,10 +37,9 @@ Regenerate all 6 frontend screens from scratch using the Stitch MCP. Each screen
 ## Screen Specifications
 
 ### 1. Login (`index.html`)
-**Stitch prompt focus:** Centered card on teal-tinted background. PhysioAI brand name + "Track. Improve. Recover." tagline above the card.
 
 **Elements:**
-- PhysioAI logo/wordmark (Manrope, large)
+- PhysioAI wordmark (Manrope, large)
 - Tagline: "Track. Improve. Recover."
 - Email input field
 - Password input field
@@ -48,12 +47,19 @@ Regenerate all 6 frontend screens from scratch using the Stitch MCP. Each screen
 - Link below button: "New user? Register"
 - Error message area (subtle, below button)
 
-**No:** Social login buttons, "forgot password", remember me checkbox.
+**No:** Social login, forgot password, remember me.
+
+**Required element IDs (for JS reattachment):**
+| ID | Element |
+|----|---------|
+| `login-form` | The `<form>` element |
+| `email` | Email input |
+| `password` | Password input |
+| `error` | Error message paragraph |
 
 ---
 
 ### 2. Sign Up (`signup.html`)
-**Stitch prompt focus:** Same centered card layout as Login. Single-column form.
 
 **Elements:**
 - PhysioAI wordmark + tagline
@@ -62,28 +68,41 @@ Regenerate all 6 frontend screens from scratch using the Stitch MCP. Each screen
 - Age input (number)
 - Gender dropdown (Male / Female / Other / Prefer not to say)
 - Password input
+- Confirm Password input *(required — JS validates passwords match before submitting)*
 - Primary CTA button: "Create Account"
 - Link: "Already have an account? Login"
 - Error message area
 
-**No:** Profile photo upload, terms checkbox, email confirmation note.
+**No:** Profile photo, terms checkbox, email confirmation note.
+
+**Required element IDs:**
+| ID | Element |
+|----|---------|
+| `signup-form` | The `<form>` element |
+| `name` | Full name input |
+| `email` | Email input |
+| `age` | Age input |
+| `gender` | Gender select |
+| `password` | Password input |
+| `confirm` | Confirm password input |
+| `error` | Error message paragraph |
 
 ---
 
 ### 3. Exercise Catalog (`exercises.html`)
-**Stitch prompt focus:** Full-width catalog page. Header with nav. Grid of exercise cards.
 
 **Elements:**
-- Header: "PhysioAI" left, "Session History" text-link right
+- Header: "PhysioAI" left, "Session History" button/link (`id="session-history-btn"`) right
 - Subheading: "Select 5 exercises to begin your session"
-- Selection counter: e.g. "2 of 5 selected" (updates dynamically)
-- 10 exercise cards in a grid (2 columns), each showing:
-  - Exercise name (Manrope, title)
-  - Short description (1 line, Inter body)
-  - Selectable state (teal highlight when selected)
-- Primary CTA button: "Start Session" (disabled/greyed until 5 selected, bottom right)
+- Selection counter: e.g. "2 of 5 selected"
+- 10 exercise cards in a 2-column grid
+- Each card contains: exercise name (Manrope title), short description (Inter body), selectable highlight state (teal when selected)
+- **Card structure note:** Each card must be a `<label>` wrapping a hidden `<input type="checkbox" class="exercise-checkbox">`. Selection state is driven by toggling a `.selected` CSS class on the label — no visible checkbox in the UI.
+- Primary CTA: "Start Session" button (`id="start-session-btn"`, greyed/disabled until exactly 5 selected, bottom right)
+- Helper text: `id="exercise-helper"` (shows selection status)
+- Message area: `id="exercises-message"`
 
-**The 10 exercises (exact names):**
+**The 10 exercises (exact names + descriptions):**
 1. Standing Hip Flexion — Gently lift one knee forward while maintaining balance
 2. Glute Bridge — Lie on your back and lift your hips toward the ceiling
 3. Cobra Pose — Lie face down and gently lift your chest using your arms
@@ -95,69 +114,122 @@ Regenerate all 6 frontend screens from scratch using the Stitch MCP. Each screen
 9. Standing Arm Circles — Make small circular motions with your arms
 10. Neutral Posture Hold — Stand tall with shoulders aligned over hips
 
-**No:** Filter/sort controls, difficulty ratings, duration estimates, favourites.
+**No:** Filters, sort controls, difficulty ratings, duration, favourites.
+
+**Required element IDs:**
+| ID | Element |
+|----|---------|
+| `exercise-list` | Container `<div>` where JS renders exercise cards |
+| `start-session-btn` | Start Session button |
+| `session-history-btn` | Session History link/button |
+| `exercise-helper` | Selection counter text |
+| `exercises-message` | Status message paragraph |
 
 ---
 
 ### 4. Live Session (`session.html`)
-**Stitch prompt focus:** Two-column layout. Webcam feed left (large), session controls right.
 
-**Elements — Left column (webcam):**
-- Video feed placeholder (labelled "Camera Feed")
-- Pose overlay canvas area
-- Camera status text (small, below video)
+**Layout:** Two-column. Left: webcam feed (large). Right: session controls.
 
-**Elements — Right column (session info):**
-- Current exercise name (Manrope, large, prominent)
-- AI Feedback text — **must be highly visible**: large Inter body, dark `on-surface` `#2b333b` colour, on a white card with generous padding. Not secondary grey.
-- Rep counter: "4 / 10 reps" (Manrope, large number)
-- Secondary button: "Next Exercise"
-- Primary button: "End Session"
-- Status message area
+**Left column — Webcam:**
+- Video feed placeholder area (`id="video"`, a `<video>` element, autoplay, playsinline)
+- Pose overlay canvas (`id="output-canvas"`) overlaid on video
+- Camera status text (`id="camera-status"`)
 
-**No:** Settings gear, timer countdown, exercise list sidebar, progress bar across top.
+**Right column — Session info:**
+- Current exercise name (`id="current-exercise"`, Manrope, large, prominent)
+- **AI Feedback text (`id="feedback-text"`)** — must be highly visible: large Inter body, dark `#2b333b` colour, white card, generous padding. NOT secondary grey.
+- Rep counter — two distinct values (both `id="rep-stats"`, JS writes e.g. `"3 / 10 (total: 4)"`):
+  - Primary: correct reps / 10 cap (Manrope, large)
+  - Secondary: total reps (Inter, smaller label beneath)
+- Secondary button: "Next Exercise" (`id="next-exercise-btn"`)
+- Primary button: "End Session" (`id="end-session-btn"`)
+- Status message area (`id="session-message"`)
+
+**Hidden audio elements (not visible in UI but required by JS):**
+```html
+<audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
+```
+These must be present in the final HTML but are hidden from the visual design.
+
+**No:** Settings, timer countdown, exercise list sidebar, progress bar.
+
+**Required element IDs:**
+| ID | Element |
+|----|---------|
+| `video` | `<video>` element |
+| `output-canvas` | `<canvas>` element |
+| `camera-status` | Camera status paragraph |
+| `current-exercise` | Exercise name span |
+| `feedback-text` | AI feedback span |
+| `rep-stats` | Rep counter span |
+| `next-exercise-btn` | Next Exercise button |
+| `end-session-btn` | End Session button |
+| `session-message` | Status message paragraph |
+| `correctSound` | Hidden audio element |
+| `wrongSound` | Hidden audio element |
 
 ---
 
 ### 5. Session Summary (`summary.html`)
-**Stitch prompt focus:** Celebration/results layout. Large score hero at top, breakdown table below.
 
 **Elements:**
 - "Session Complete" heading
-- Overall score (large Manrope number, e.g. "82 / 100")
-- Total reps stat card
-- Per-exercise breakdown table:
-  - Columns: Exercise | Correct Reps | Incorrect Reps | Total Reps | Posture %
-  - 5 rows (one per selected exercise)
-- Two navigation buttons: "Start New Session" (primary) + "View History" (secondary)
+- Overall score: large Manrope number (e.g. "82") + "/ 100" — rendered into `id="overall-score"` span
+- Total reps stat — rendered into `id="total-reps"` span. Must be a standalone addressable element.
+- Per-exercise breakdown table (`id="summary-table"`):
+  - `<thead>` with columns: Exercise | Correct Reps | Incorrect Reps | Total Reps | Posture %
+  - `<tbody>` populated by JS (5 rows, one per selected exercise)
+- Two navigation buttons:
+  - "Start New Session" → links to `exercises.html`
+  - "View History" → links to `history.html`
+- Message area: `id="summary-message"`
 
-**No:** Share button, download PDF, badges/achievements, back to login.
+**No:** Share, download PDF, badges, back to login.
+
+**Required element IDs:**
+| ID | Element |
+|----|---------|
+| `overall-score` | Score span (JS writes the number here) |
+| `total-reps` | Total reps span (separately addressable) |
+| `summary-table` | `<table>` element |
+| `summary-message` | Status message paragraph |
 
 ---
 
 ### 6. Session History (`history.html`)
-**Stitch prompt focus:** Clean list view. Newest sessions at top.
 
 **Elements:**
-- Header: "PhysioAI" left, "Logout" text-link right
+- Header: "PhysioAI" left, logout link right
 - Page title: "Session History"
-- List of session rows, each showing:
-  - Date + time (Inter, secondary)
-  - Session score (Manrope, prominent, teal)
-  - "View Details" chevron/link
-- Empty state: illustration placeholder + "No sessions yet. Start your first session."
-- Primary CTA button: "Start New Session" (bottom or header)
+- Session list container (`id="history-list"`) — JS renders rows here from localStorage
+- Each row shows: date + time (Inter, secondary), session score (Manrope, teal, prominent)
+- Empty state: shown when no sessions exist — "No sessions yet. Start your first session."
+- Primary CTA button: "Start New Session" → links to `exercises.html`
+- Message area: `id="history-message"`
 
-**No:** Filter by date, export, delete session, pagination controls.
+**Data source note:** `history.js` reads from `localStorage` key `physioai_session_history` (written by session.js at session end). It does NOT call the `/history` backend API in the current implementation. No "View Details" link is included — detail navigation is not wired up and is out of scope for this phase.
+
+**No:** View Details links, filter by date, export, delete, pagination.
+
+**Required element IDs:**
+| ID | Element |
+|----|---------|
+| `history-list` | Container where JS renders session rows |
+| `history-message` | Status message paragraph |
 
 ---
 
 ## Implementation Notes (Phase 3)
 
-- Stitch generates standalone HTML with inline styles — these will be adapted into the existing `frontend/` file structure
-- JS logic in `frontend/js/` (auth.js, exercises.js, session.js, summary.js, history.js) is preserved and re-attached to new HTML structure
-- Animations (button hovers, background transitions) added as a separate pass after HTML implementation
-- The existing `frontend/css/styles.css` will be replaced by the Stitch design tokens
+- Stitch generates standalone HTML with inline styles — adapted into the existing `frontend/` file structure
+- JS logic in `frontend/js/` is preserved and re-attached using the element IDs documented per screen above
+- `session.html` must include two hidden `<audio>` elements (`correctSound`, `wrongSound`) — these are functional requirements, not design elements
+- The exercise cards in `exercises.html` must use a `<label>` + hidden `<input type="checkbox" class="exercise-checkbox">` pattern for `exercises.js` compatibility
+- `confirm` password field in `signup.html` is required for client-side validation in `auth.js`
+- Animations (button hovers, background transitions) are a separate later pass
+- `frontend/css/styles.css` will be replaced by Stitch design tokens
 
 ---
 
@@ -167,3 +239,5 @@ Regenerate all 6 frontend screens from scratch using the Stitch MCP. Each screen
 - Mobile/responsive layout
 - Exercise illustrations/icons
 - Real-time pose skeleton overlay styling
+- Session detail view (history → `/history/<session_id>`)
+- Migrating history.js to use the `/history` backend API
