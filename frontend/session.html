@@ -1,48 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>PhysioAI - Live Session</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Live Session</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-dim": "#325673",
+              "tertiary-fixed-dim": "#9bc0e0",
+              "background": "#f7f9fe",
+              "on-surface-variant": "#576068",
+              "primary": "#006a71",
+              "surface-variant": "#dae3ed",
+              "inverse-on-surface": "#9a9da2",
+              "on-tertiary-fixed-variant": "#294e6a",
+              "tertiary": "#3f637f",
+              "error": "#a83836",
+              "primary-dim": "#005d63",
+              "secondary-dim": "#3f575a",
+              "on-error": "#fff7f6",
+              "primary-fixed": "#96f1fa",
+              "on-surface": "#2b333b",
+              "on-secondary-container": "#3d5658",
+              "on-secondary-fixed": "#2b4346",
+              "surface": "#f7f9fe",
+              "on-secondary": "#e7fdff",
+              "on-primary-container": "#005b61",
+              "error-container": "#fa746f",
+              "primary-fixed-dim": "#88e3eb",
+              "surface-dim": "#d2dbe5",
+              "secondary-fixed": "#cce8ea",
+              "secondary": "#4a6366",
+              "secondary-fixed-dim": "#bed9dc",
+              "inverse-primary": "#99f4fd",
+              "outline-variant": "#aab3bc",
+              "tertiary-fixed": "#a9cdef",
+              "error-dim": "#67040d",
+              "secondary-container": "#cce8ea",
+              "on-tertiary-container": "#1f4561",
+              "on-primary": "#e7fdff",
+              "outline": "#737c84",
+              "on-tertiary": "#f6f9ff",
+              "on-tertiary-fixed": "#03314c",
+              "on-error-container": "#6e0a12",
+              "surface-tint": "#006a71",
+              "on-primary-fixed-variant": "#00666d",
+              "inverse-surface": "#0a0f12",
+              "surface-container": "#e8eef6",
+              "surface-container-high": "#e2e9f1",
+              "on-primary-fixed": "#00474c",
+              "tertiary-container": "#a9cdef",
+              "on-background": "#2b333b",
+              "on-secondary-fixed-variant": "#476062",
+              "surface-container-highest": "#dae3ed",
+              "surface-container-low": "#eff4fb",
+              "primary-container": "#96f1fa",
+              "surface-bright": "#f7f9fe",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tonal-transition {
+        background: linear-gradient(to bottom, #f7f9fe, #eff4fb);
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #006a71 0%, #005d63 100%);
+      }
+      .ghost-border {
+        border: 1px solid rgba(170, 179, 188, 0.15);
+      }
+      .pa-message {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        min-height: 1.25rem;
+      }
+      .pa-message.error {
+        color: #a83836;
+      }
+      .pa-message.success {
+        color: #006a71;
+      }
+    </style>
 </head>
-<body>
-  <audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
-  <header class="pa-header">
-    <h1>PhysioAI</h1>
-    <p class="pa-subtitle">Live Exercise Session</p>
-  </header>
-
-  <main class="pa-main pa-session-layout">
-    <section class="pa-card pa-video-card">
-      <h2>Webcam</h2>
-      <video id="video" autoplay playsinline class="pa-video"></video>
-      <canvas id="output-canvas" class="pa-video-overlay"></canvas>
-      <p id="camera-status" class="pa-message"></p>
-    </section>
-
-    <section class="pa-card pa-session-info-card">
-      <h2>Session Info</h2>
-      <p><strong>Current exercise:</strong> <span id="current-exercise">-</span></p>
-      <p><strong>Feedback:</strong> <span id="feedback-text">Waiting for pose...</span></p>
-      <p><strong>Reps:</strong> <span id="rep-stats">0 / 10</span></p>
-
-      <div class="pa-form-actions">
-        <button id="next-exercise-btn" class="pa-btn-secondary">Next Exercise</button>
-        <button id="end-session-btn">End Session</button>
-      </div>
-
-      <p id="session-message" class="pa-message"></p>
-    </section>
-  </main>
-
-  <!-- MediaPipe Pose (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-
-  <script src="js/session.js"></script>
-</body>
-</html>
-
+<body class="bg-surface font-body text-on-surface antialiased">
+<audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm shadow-teal-900/5 h-16">
+<div class="flex items-center justify-between px-6 h-full w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-bold tracking-tighter text-teal-800 dark:text-teal-200 font-headline">PhysioAI</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<span class="text-teal-700 font-bold font-headline">Live Session</span>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
+<!-- Session Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<span class="text-on-surface-variant font-medium tracking-wide uppercase text-xs mb-1 block">Current Exercise</span>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface"><span id="current-exercise">-</span></h2>
+</div>
+</div>
+<!-- Main Layout: two-column bento -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Camera Feed (Left, 60%) -->
+<div class="lg:col-span-8 relative rounded-3xl overflow-hidden shadow-sm">
+<div style="position: relative; display: inline-block; width: 100%;">
+<video id="video" autoplay playsinline style="width: 100%; border-radius: 1rem; background: #1a1a2e; min-height: 360px;"></video>
+<canvas id="output-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+</div>
+<!-- Live Tag -->
+<div class="absolute top-6 left-6 bg-error/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+<span class="text-white text-[10px] font-bold uppercase tracking-widest">Live Analysis</span>
+</div>
+</div>
+<!-- Side Controls & Stats (Right, 40%) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Camera Status -->
+<p id="camera-status" class="pa-message text-on-surface-variant text-sm"></p>
+<!-- Rep Counter Bento Box -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-[0_4px_32px_rgba(0,106,113,0.06)] flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary/20 scale-150">fitness_center</span>
+</div>
+<span class="text-on-surface-variant font-medium uppercase tracking-[0.1em] text-xs mb-2">Reps</span>
+<div class="flex items-baseline gap-2">
+<span id="rep-stats" class="text-5xl font-extrabold font-headline text-primary">0 / 10 (total: 0)</span>
+</div>
+</div>
+<!-- AI Feedback Bento Box -->
+<div class="bg-primary-container/30 rounded-3xl p-6 flex flex-col gap-4 border border-primary-fixed-dim/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h3 class="font-headline font-bold text-on-primary-container">AI Feedback</h3>
+</div>
+<div class="bg-white p-4 rounded-2xl border-l-4 border-primary">
+<span id="feedback-text" style="font-size: 1.1rem; color: #2b333b; font-family: 'Inter', sans-serif; line-height: 1.5;"></span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-2 gap-4 mt-auto">
+<button id="next-exercise-btn" class="bg-surface-container-lowest hover:bg-surface-variant text-primary font-bold rounded-2xl py-4 px-6 transition-all active:scale-95 font-label tracking-wide text-xs uppercase border border-primary/30">
+Next Exercise
+</button>
+<button id="end-session-btn" class="signature-gradient hover:opacity-90 text-on-primary font-bold rounded-2xl py-4 px-6 shadow-lg shadow-primary/20 transition-all active:scale-95 font-label tracking-wide text-xs uppercase">
+End Session
+</button>
+</div>
+<!-- Session Message -->
+<p id="session-message" class="pa-message"></p>
+</div>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+<script src="js/session.js"></script>
+</body></html>
