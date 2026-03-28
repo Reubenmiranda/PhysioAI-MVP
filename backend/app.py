@@ -47,7 +47,9 @@ except ImportError as e:
 
 # Import backend utilities
 from auth import hash_password, verify_password, login_required
-from db_mongo import (
+import uuid
+from postgrest.exceptions import APIError as PostgrestAPIError
+from db_supabase import (
     create_user as create_user_mongo,
     get_user_by_email,
     get_user_by_id,
@@ -55,8 +57,6 @@ from db_mongo import (
     get_user_sessions,
     get_session_by_id
 )
-from pymongo.errors import DuplicateKeyError
-from bson import ObjectId
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -181,11 +181,13 @@ def register():
         user_id = create_user_mongo(email, name, age, gender, password_hash)
         return jsonify({
             "message": "User registered successfully",
-            "user_id": str(user_id)
+            "user_id": user_id
         }), 201
-    except DuplicateKeyError:
-        return jsonify({"error": "Email already registered"}), 409
-    except Exception as e:
+    except PostgrestAPIError as e:
+        if e.code == "23505":
+            return jsonify({"error": "Email already registered"}), 409
+        return jsonify({"error": "Registration failed. Please try again."}), 500
+    except Exception:
         return jsonify({"error": "Registration failed. Please try again."}), 500
 
 
@@ -227,13 +229,13 @@ def login():
         return jsonify({"error": "Invalid email or password"}), 401
     
     # Create Flask session
-    session['user_id'] = str(user['_id'])
+    session['user_id'] = user['id']
     session['email'] = email
     session['name'] = user.get('name', '')
-    
+
     return jsonify({
         "message": "Login successful",
-        "user_id": str(user['_id']),
+        "user_id": user['id'],
         "email": email,
         "name": user.get('name', '')
     }), 200
@@ -637,8 +639,8 @@ def get_history():
         sessions_list = []
         for sess in sessions:
             sessions_list.append({
-                "session_id": str(sess['_id']),
-                "timestamp": sess['timestamp'].isoformat(),
+                "session_id": sess['id'],
+                "timestamp": sess['timestamp'],
                 "session_score": sess['session_score']
             })
         
@@ -678,7 +680,9 @@ def get_session_detail(session_id):
     user_id = session.get('user_id')
     
     # Validate session_id format
-    if not ObjectId.is_valid(session_id):
+    try:
+        uuid.UUID(session_id)
+    except ValueError:
         return jsonify({"error": "Invalid session ID format"}), 400
     
     # Get session from MongoDB
@@ -690,8 +694,8 @@ def get_session_detail(session_id):
         
         # Format response
         response = {
-            "session_id": str(session_doc['_id']),
-            "timestamp": session_doc['timestamp'].isoformat(),
+            "session_id": session_doc['id'],
+            "timestamp": session_doc['timestamp'],
             "session_score": session_doc['session_score'],
             "exercises": session_doc['exercises']
         }
