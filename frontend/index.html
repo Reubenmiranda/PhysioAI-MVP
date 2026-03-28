@@ -1,41 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <title>PhysioAI - Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Patient Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-dim": "#005d63",
+                        "outline": "#737c84",
+                        "on-error": "#fff7f6",
+                        "surface": "#f7f9fe",
+                        "on-tertiary": "#f6f9ff",
+                        "tertiary-container": "#a9cdef",
+                        "inverse-primary": "#99f4fd",
+                        "tertiary": "#3f637f",
+                        "surface-bright": "#f7f9fe",
+                        "tertiary-fixed": "#a9cdef",
+                        "on-primary": "#e7fdff",
+                        "on-primary-fixed-variant": "#00666d",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#88e3eb",
+                        "on-tertiary-container": "#1f4561",
+                        "tertiary-fixed-dim": "#9bc0e0",
+                        "surface-dim": "#d2dbe5",
+                        "on-primary-container": "#005b61",
+                        "error": "#a83836",
+                        "on-background": "#2b333b",
+                        "on-surface": "#2b333b",
+                        "on-tertiary-fixed": "#03314c",
+                        "background": "#f7f9fe",
+                        "surface-container": "#e8eef6",
+                        "primary-fixed": "#96f1fa",
+                        "primary-container": "#96f1fa",
+                        "secondary-dim": "#3f575a",
+                        "surface-container-low": "#eff4fb",
+                        "secondary-fixed": "#cce8ea",
+                        "surface-variant": "#dae3ed",
+                        "on-error-container": "#6e0a12",
+                        "on-primary-fixed": "#00474c",
+                        "on-secondary-fixed": "#2b4346",
+                        "secondary-container": "#cce8ea",
+                        "surface-container-high": "#e2e9f1",
+                        "primary": "#006a71",
+                        "on-secondary-container": "#3d5658",
+                        "inverse-on-surface": "#9a9da2",
+                        "error-dim": "#67040d",
+                        "on-tertiary-fixed-variant": "#294e6a",
+                        "secondary-fixed-dim": "#bed9dc",
+                        "on-secondary": "#e7fdff",
+                        "inverse-surface": "#0a0f12",
+                        "surface-tint": "#006a71",
+                        "secondary": "#4a6366",
+                        "tertiary-dim": "#325673",
+                        "outline-variant": "#aab3bc",
+                        "on-secondary-fixed-variant": "#476062",
+                        "on-surface-variant": "#576068",
+                        "surface-container-highest": "#dae3ed",
+                        "error-container": "#fa746f"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #006a71 0%, #005d63 100%);
+        }
+        .tonal-transition {
+            background: linear-gradient(to bottom, #f7f9fe, #eff4fb);
+        }
+    </style>
 </head>
-
-<body class="login-page">
-  <header class="auth-brand">
-    Physio AI
-    <div class="auth-tagline">Track. Improve. Recover.</div>
-  </header>
-  <div class="login-container">
-    <div class="login-card">
-      <h2>Sign in</h2>
-
-      <form id="login-form" class="login-form">
-        <label for="email">Email</label>
-        <input type="email" id="email" required />
-
-        <label for="password">Password</label>
-        <input type="password" id="password" required />
-
-        <button type="submit">Login</button>
-      </form>
-
-      <p class="login-register-link">
-        New user? <a href="signup.html">Register</a>
-      </p>
-
-      <p id="error" class="login-error"></p>
-    </div>
-  </div>
-
-  <script src="js/auth.js"></script>
-</body>
-
-</html>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container">
+<!-- Auth Layout Wrapper -->
+<main class="min-h-screen flex items-center justify-center lg:justify-start">
+<!-- Left Side: Login Form Canvas -->
+<div class="w-full lg:w-1/2 xl:w-[45%] flex flex-col justify-center px-8 sm:px-16 lg:px-24 py-12 z-10">
+<!-- Brand Anchor -->
+<div class="mb-12">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl signature-gradient flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<span class="text-2xl font-headline font-bold tracking-tighter text-primary">PhysioAI</span>
+</div>
+</div>
+<!-- Welcome Text -->
+<div class="mb-10">
+<h1 class="text-4xl font-headline font-extrabold text-on-surface tracking-tight mb-3">Welcome back</h1>
+<p class="text-on-surface-variant text-lg">Continue your recovery journey with AI-powered guidance.</p>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl p-1 shadow-[0_4px_32px_rgba(0,106,113,0.04)]">
+<form id="login-form" class="space-y-6 p-2">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface-variant px-1" for="email">Email</label>
+<div class="relative group">
+<input class="w-full px-4 py-4 bg-surface-container-high border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-lg transition-all placeholder:text-outline-variant text-on-surface" id="email" placeholder="name@example.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="block text-sm font-label font-semibold text-on-surface-variant" for="password">Password</label>
+</div>
+<div class="relative group">
+<input class="w-full px-4 py-4 bg-surface-container-high border-b-2 border-transparent focus:border-primary focus:ring-0 rounded-lg transition-all placeholder:text-outline-variant text-on-surface" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="pt-4">
+<button class="w-full signature-gradient text-on-primary py-4 rounded-xl font-label font-bold text-sm uppercase tracking-[0.05em] shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200" type="submit">
+                            Login
+                        </button>
+</div>
+<!-- Error Message -->
+<p id="error" class="text-error text-sm font-label text-center min-h-[1.25rem]"></p>
+</form>
+</div>
+<!-- Footer Links -->
+<div class="mt-10 text-center lg:text-left">
+<p class="text-on-surface-variant font-label">
+                    New user?
+                    <a class="text-primary font-bold hover:underline underline-offset-4 ml-1 transition-all">Register</a>
+</p>
+</div>
+<!-- Clinical Assurance -->
+<div class="mt-auto pt-16 flex items-center gap-4 text-outline-variant opacity-60">
+<span class="material-symbols-outlined text-xl">verified_user</span>
+<span class="text-xs font-label uppercase tracking-widest">HIPAA Compliant &amp; Secure</span>
+</div>
+</div>
+<!-- Right Side: Editorial Hero Image -->
+<div class="hidden lg:block lg:w-1/2 xl:w-[55%] h-screen sticky top-0 bg-surface-container">
+<div class="relative h-full w-full overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Modern bright physical therapy clinic with a patient performing a gentle shoulder stretch while a serene healthcare professional observes with an iPad in a soft-lit background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJC4Q6R8hwd9pJ9KOsierWLPpcbuQtiKl4ITay3yj0Nul10v1pbOGvJN2plvMGhQYWg8wPZ8uM9iZSFnd_mgNaXsGasJ9eSYpq1SpL5J0ZHu72635e189s56OURWhu_8wNqTzmsm6yiWIVDJHBky-DKOa3EmyvUK6UC3ag7J4lGH4XHOmaUZ-jJvMBuA0WsouHxIhNEYg8R_0UBbl8keEDrZ1hEXwfvMNr_kE26__Rw7O_Bt-_nPTsmwy4_qxoqFIUD-aLDBQIDDP"/>
+<!-- Overlay Gradient for Depth -->
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"></div>
+<!-- Floating AI Feedback Card (Bento Style) -->
+<div class="absolute bottom-12 left-12 right-12">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl p-8 rounded-xl shadow-2xl border border-white/20 max-w-md">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<span class="text-xs font-label font-bold text-secondary uppercase tracking-widest">Live Feedback</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-on-surface mb-2">Keep your back straight</h3>
+<p class="text-on-surface-variant leading-relaxed">PhysioAI monitors your posture in real-time to ensure every movement is safe and effective for your recovery.</p>
+<!-- Progress Indicator Decoration -->
+<div class="mt-6 flex gap-1">
+<div class="h-1.5 w-12 rounded-full bg-primary"></div>
+<div class="h-1.5 w-4 rounded-full bg-outline-variant/30"></div>
+<div class="h-1.5 w-4 rounded-full bg-outline-variant/30"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script src="js/auth.js"></script>
+</body></html>
