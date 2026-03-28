@@ -1,34 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>PhysioAI - Session History</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Session History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#2b4346",
+                        "secondary-container": "#cce8ea",
+                        "surface-container-high": "#e2e9f1",
+                        "primary": "#006a71",
+                        "secondary-fixed": "#cce8ea",
+                        "surface-variant": "#dae3ed",
+                        "on-error-container": "#6e0a12",
+                        "on-primary-fixed": "#00474c",
+                        "error-dim": "#67040d",
+                        "on-tertiary-fixed-variant": "#294e6a",
+                        "on-secondary-container": "#3d5658",
+                        "inverse-on-surface": "#9a9da2",
+                        "surface-tint": "#006a71",
+                        "secondary": "#4a6366",
+                        "secondary-fixed-dim": "#bed9dc",
+                        "on-secondary": "#e7fdff",
+                        "inverse-surface": "#0a0f12",
+                        "outline-variant": "#aab3bc",
+                        "on-secondary-fixed-variant": "#476062",
+                        "on-surface-variant": "#576068",
+                        "surface-container-highest": "#dae3ed",
+                        "error-container": "#fa746f",
+                        "tertiary-dim": "#325673",
+                        "tertiary-container": "#a9cdef",
+                        "inverse-primary": "#99f4fd",
+                        "tertiary": "#3f637f",
+                        "primary-dim": "#005d63",
+                        "outline": "#737c84",
+                        "surface": "#f7f9fe",
+                        "on-tertiary": "#f6f9ff",
+                        "on-error": "#fff7f6",
+                        "on-primary": "#e7fdff",
+                        "surface-bright": "#f7f9fe",
+                        "tertiary-fixed": "#a9cdef",
+                        "tertiary-fixed-dim": "#9bc0e0",
+                        "surface-dim": "#d2dbe5",
+                        "on-primary-container": "#005b61",
+                        "error": "#a83836",
+                        "on-background": "#2b333b",
+                        "on-primary-fixed-variant": "#00666d",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#88e3eb",
+                        "on-tertiary-container": "#1f4561",
+                        "primary-container": "#96f1fa",
+                        "secondary-dim": "#3f575a",
+                        "surface-container-low": "#eff4fb",
+                        "on-surface": "#2b333b",
+                        "on-tertiary-fixed": "#03314c",
+                        "background": "#f7f9fe",
+                        "surface-container": "#e8eef6",
+                        "primary-fixed": "#96f1fa"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .tonal-transition {
+            transition: background-color 0.3s ease;
+        }
+        .no-border {
+            border: none !important;
+        }
+        /* Session history cards created by history.js */
+        .pa-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 -4px 20px rgba(0, 106, 113, 0.06);
+            transition: background-color 0.3s ease;
+        }
+        .pa-card:hover {
+            background: #eff4fb;
+        }
+        .pa-card h3 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #2b333b;
+            margin-bottom: 0.75rem;
+        }
+        .pa-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #576068;
+            margin-bottom: 0.4rem;
+            line-height: 1.5;
+        }
+        .pa-card p strong {
+            color: #2b333b;
+        }
+        .pa-message {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            min-height: 1.25rem;
+            color: #576068;
+        }
+        .pa-message.error {
+            color: #a83836;
+        }
+        .pa-message.success {
+            color: #006a71;
+        }
+    </style>
 </head>
-<body>
-  <header class="pa-header">
-    <h1>PhysioAI</h1>
-    <p class="pa-subtitle">AI-Powered Physiotherapy Progress Tracking</p>
-  </header>
-
-  <main class="pa-main">
-    <section class="pa-card">
-      <h2>Session History</h2>
-      <p id="history-message" class="pa-message"></p>
-      <div id="history-list"></div>
-    </section>
-
-    <section class="pa-card">
-      <div class="pa-form-actions">
-        <a href="summary.html" class="pa-link-button">Back to Summary</a>
-        <a href="exercises.html" class="pa-link-button">Start New Session</a>
-        <a href="index.html" class="pa-link-button pa-btn-secondary">Back to Login</a>
-      </div>
-    </section>
-  </main>
-
-  <script src="js/history.js"></script>
-</body>
-</html>
-
+<body class="bg-surface font-body text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm shadow-teal-900/5 dark:shadow-none no-border">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-headline font-bold tracking-tight text-teal-800 dark:text-teal-200">PhysioAI</div>
+<div class="flex items-center">
+<a href="index.html" class="text-slate-500 font-medium hover:text-error transition-colors flex items-center gap-2">
+Logout
+<span class="material-symbols-outlined text-lg" data-icon="logout">logout</span>
+</a>
+</div>
+</div>
+</header>
+<main class="pt-28 pb-40 px-6 max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="mb-12">
+<h1 class="font-headline font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight mb-4">Session History</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">Track your recovery journey. Your AI-guided sessions help monitor form and consistency over time.</p>
+</div>
+<!-- Session History List (populated by history.js) -->
+<div id="history-list"></div>
+<p id="history-message" class="pa-message"></p>
+<!-- Sticky Floating Action Button -->
+<div class="fixed bottom-12 left-1/2 -translate-x-1/2 w-full max-w-xs px-4">
+<a href="exercises.html" class="block w-full py-5 rounded-xl bg-gradient-to-br from-primary to-primary-dim text-on-primary font-headline font-bold tracking-[0.05em] shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-200 uppercase text-center text-sm">
+START NEW SESSION
+</a>
+</div>
+</main>
+<script src="js/history.js"></script>
+</body></html>
