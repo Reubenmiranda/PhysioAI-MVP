@@ -6,8 +6,6 @@ Handles password hashing and session-based authentication.
 
 from functools import wraps
 from flask import session, jsonify
-from backend.db_mongo import users_collection
-
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
