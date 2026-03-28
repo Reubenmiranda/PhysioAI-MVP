@@ -1,63 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>PhysioAI - Signup</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Create Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#9bc0e0",
+              "secondary-fixed": "#cce8ea",
+              "on-primary-container": "#005b61",
+              "surface-container-low": "#eff4fb",
+              "secondary-container": "#cce8ea",
+              "primary-fixed": "#96f1fa",
+              "inverse-on-surface": "#9a9da2",
+              "primary-container": "#96f1fa",
+              "on-primary": "#e7fdff",
+              "on-error": "#fff7f6",
+              "on-tertiary-fixed": "#03314c",
+              "on-secondary-fixed": "#2b4346",
+              "surface-tint": "#006a71",
+              "surface-bright": "#f7f9fe",
+              "on-surface-variant": "#576068",
+              "tertiary-container": "#a9cdef",
+              "tertiary-dim": "#325673",
+              "tertiary": "#3f637f",
+              "surface-container-highest": "#dae3ed",
+              "secondary-dim": "#3f575a",
+              "outline-variant": "#aab3bc",
+              "secondary": "#4a6366",
+              "primary-dim": "#005d63",
+              "background": "#f7f9fe",
+              "surface-dim": "#d2dbe5",
+              "error": "#a83836",
+              "on-tertiary-container": "#1f4561",
+              "surface-container-high": "#e2e9f1",
+              "outline": "#737c84",
+              "on-tertiary-fixed-variant": "#294e6a",
+              "surface": "#f7f9fe",
+              "error-container": "#fa746f",
+              "primary-fixed-dim": "#88e3eb",
+              "on-error-container": "#6e0a12",
+              "secondary-fixed-dim": "#bed9dc",
+              "on-tertiary": "#f6f9ff",
+              "on-secondary-fixed-variant": "#476062",
+              "on-primary-fixed": "#00474c",
+              "tertiary-fixed": "#a9cdef",
+              "on-surface": "#2b333b",
+              "inverse-primary": "#99f4fd",
+              "surface-container": "#e8eef6",
+              "on-secondary-container": "#3d5658",
+              "on-primary-fixed-variant": "#00666d",
+              "inverse-surface": "#0a0f12",
+              "on-background": "#2b333b",
+              "on-secondary": "#e7fdff",
+              "surface-container-lowest": "#ffffff",
+              "error-dim": "#67040d",
+              "primary": "#006a71",
+              "surface-variant": "#dae3ed"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fe; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        /* Custom ghost border focus effect */
+        .input-elegant {
+            border: none;
+            border-bottom: 2px solid rgba(170, 179, 188, 0.15);
+            transition: all 0.3s ease;
+        }
+        .input-elegant:focus {
+            outline: none;
+            border-bottom: 2px solid #006a71;
+            box-shadow: none;
+        }
+    </style>
 </head>
-<body class="signup-page">
-  <header class="auth-brand">Physio AI</header>
-  <div class="signup-container">
-    <div class="signup-card">
-      <h2>Create Account</h2>
-
-      <form id="signup-form" class="signup-form">
-        <div class="signup-form-row">
-          <div class="signup-field">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="Full Name" required />
-          </div>
-          <div class="signup-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Email" required />
-          </div>
-        </div>
-        <div class="signup-form-row">
-          <div class="signup-field">
-            <label for="age">Age</label>
-            <input type="number" id="age" min="10" max="100" placeholder="Age" required />
-          </div>
-          <div class="signup-field">
-            <label for="gender">Gender</label>
-            <select id="gender" required>
-              <option value="">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="signup-field">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Password" required />
-        </div>
-        <div class="signup-field">
-          <label for="confirm">Confirm Password</label>
-          <input type="password" id="confirm" placeholder="Confirm Password" required />
-        </div>
-
-        <button type="submit">Create Account</button>
-      </form>
-
-      <p class="signup-login-link">
-        Already have an account? <a href="index.html">Sign in</a>
-      </p>
-
-      <p id="error" class="signup-error"></p>
-    </div>
-  </div>
-
-  <script src="js/auth.js"></script>
-</body>
-</html>
+<body class="bg-surface-bright flex items-center justify-center min-h-screen p-6">
+<!-- Auth Shell Suppression: Navigation bars are suppressed for transactional sign-up screens -->
+<main class="w-full max-w-md">
+<!-- Main Registration Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-8 md:p-10 flex flex-col items-center">
+<!-- Branding Header -->
+<div class="text-center mb-10">
+<h1 class="font-manrope text-3xl font-extrabold tracking-tighter text-primary mb-1">
+                    PhysioAI
+                </h1>
+<p class="font-manrope text-sm tracking-wide text-on-surface-variant font-medium">
+                    Track. Improve. Recover.
+                </p>
+</div>
+<!-- Form Container -->
+<form id="signup-form" class="w-full space-y-6">
+<!-- Full Name -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Full Name</label>
+<input id="name" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="Enter your full name" type="text"/>
+</div>
+<!-- Email -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Email</label>
+<input id="email" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="name@example.com" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Age -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Age</label>
+<input id="age" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" max="120" min="13" placeholder="Years" type="number"/>
+</div>
+<!-- Gender -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Gender</label>
+<select id="gender" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Select</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+<option value="Prefer not to say">Prefer not to say</option>
+</select>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Password</label>
+<div class="relative">
+<input id="password" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline/60 cursor-pointer text-xl" data-icon="visibility">visibility</span>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-on-surface-variant tracking-wider uppercase px-1">Confirm Password</label>
+<div class="relative">
+<input id="confirm" class="w-full bg-surface-container-high input-elegant rounded-t-lg px-4 py-3 text-on-surface font-body placeholder:text-outline/50" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Primary CTA -->
+<div class="pt-4">
+<button class="w-full bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold py-4 rounded-[1.5rem] shadow-lg shadow-primary/10 active:scale-95 transition-all tracking-[0.05em] uppercase text-sm" type="submit">
+                        CREATE ACCOUNT
+                    </button>
+</div>
+<!-- Account Links -->
+<div class="text-center pt-2">
+<p class="text-sm text-on-surface-variant">
+                        Already have an account?
+                        <a class="text-primary font-semibold hover:underline decoration-2 underline-offset-4 transition-all" href="index.html">Login</a>
+</p>
+</div>
+</form>
+<!-- Error message (outside form) -->
+<p id="error" class="min-h-[1.5rem] text-center text-sm text-error mt-4"></p>
+</div>
+<!-- Secondary Background Decoration -->
+<div class="fixed top-0 right-0 -z-10 w-1/3 h-1/2 opacity-20 pointer-events-none">
+<div class="w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary-fixed to-transparent rounded-full blur-3xl"></div>
+</div>
+<div class="fixed bottom-0 left-0 -z-10 w-1/3 h-1/2 opacity-20 pointer-events-none">
+<div class="w-full h-full bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-tertiary-fixed to-transparent rounded-full blur-3xl"></div>
+</div>
+</main>
+<script src="js/auth.js"></script>
+</body></html>
