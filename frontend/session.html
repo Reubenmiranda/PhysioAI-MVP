@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PhysioAI - Live Session</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <audio id="correctSound" src="assets/correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="assets/wrong.mp3" preload="auto"></audio>
+  <header class="pa-header">
+    <h1>PhysioAI</h1>
+    <p class="pa-subtitle">Live Exercise Session</p>
+  </header>
+
+  <main class="pa-main pa-session-layout">
+    <section class="pa-card pa-video-card">
+      <h2>Webcam</h2>
+      <video id="video" autoplay playsinline class="pa-video"></video>
+      <canvas id="output-canvas" class="pa-video-overlay"></canvas>
+      <p id="camera-status" class="pa-message"></p>
+    </section>
+
+    <section class="pa-card pa-session-info-card">
+      <h2>Session Info</h2>
+      <p><strong>Current exercise:</strong> <span id="current-exercise">-</span></p>
+      <p><strong>Feedback:</strong> <span id="feedback-text">Waiting for pose...</span></p>
+      <p><strong>Reps:</strong> <span id="rep-stats">0 / 10</span></p>
+
+      <div class="pa-form-actions">
+        <button id="next-exercise-btn" class="pa-btn-secondary">Next Exercise</button>
+        <button id="end-session-btn">End Session</button>
+      </div>
+
+      <p id="session-message" class="pa-message"></p>
+    </section>
+  </main>
+
+  <!-- MediaPipe Pose (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
+  <script src="js/session.js"></script>
+</body>
+</html>
+

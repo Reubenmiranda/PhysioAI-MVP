@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PhysioAI - Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="signup-page">
+  <header class="auth-brand">Physio AI</header>
+  <div class="signup-container">
+    <div class="signup-card">
+      <h2>Create Account</h2>
+
+      <form id="signup-form" class="signup-form">
+        <div class="signup-form-row">
+          <div class="signup-field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Full Name" required />
+          </div>
+          <div class="signup-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+        </div>
+        <div class="signup-form-row">
+          <div class="signup-field">
+            <label for="age">Age</label>
+            <input type="number" id="age" min="10" max="100" placeholder="Age" required />
+          </div>
+          <div class="signup-field">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="signup-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Password" required />
+        </div>
+        <div class="signup-field">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" id="confirm" placeholder="Confirm Password" required />
+        </div>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p class="signup-login-link">
+        Already have an account? <a href="index.html">Sign in</a>
+      </p>
+
+      <p id="error" class="signup-error"></p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

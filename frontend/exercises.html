@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PhysioAI - Select Exercises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="pa-header">
+    <h1>PhysioAI</h1>
+    <p class="pa-subtitle">Select 5 exercises to begin</p>
+    <div class="pa-form-actions">
+      <button id="session-history-btn" class="pa-link-button">Session History</button>
+    </div>
+  </header>
+
+  <main class="pa-main">
+    <section class="pa-card">
+      <div class="pa-card-header">
+        <h2>Exercise Catalog</h2>
+        <p id="exercise-helper">Select exactly 5 exercises to continue.</p>
+      </div>
+
+      <div id="exercise-list" class="pa-exercise-list">
+        <!-- Populated by exercises.js -->
+      </div>
+
+      <div class="pa-form-actions pa-form-actions-right">
+        <button id="start-session-btn" disabled>Start Session</button>
+      </div>
+
+      <p id="exercises-message" class="pa-message"></p>
+    </section>
+  </main>
+
+  <script src="js/exercises.js"></script>
+</body>
+</html>
+

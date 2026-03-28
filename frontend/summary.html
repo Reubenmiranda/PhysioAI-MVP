@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>PhysioAI - Session Summary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header class="pa-header">
+    <h1>PhysioAI</h1>
+    <p class="pa-subtitle">Session Summary</p>
+  </header>
+
+  <main class="pa-main">
+    <section class="pa-card">
+      <h2>Overview</h2>
+      <p><strong>Overall score:</strong> <span id="overall-score">-</span></p>
+      <div class="summary-stats">
+        <div class="summary-stat summary-stat--total">
+          <span class="summary-stat-label">Total Reps</span>
+          <span id="total-reps" class="summary-stat-value">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pa-card">
+      <h2>Per Exercise Details</h2>
+      <table class="pa-table" id="summary-table">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Correct Reps</th>
+            <th>Incorrect Reps</th>
+            <th>Total Reps</th>
+            <th>Posture Correctness</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by summary.js -->
+        </tbody>
+      </table>
+      <p id="summary-message" class="pa-message"></p>
+    </section>
+
+    <section class="pa-card">
+      <div class="pa-form-actions">
+        <a href="exercises.html" class="pa-link-button">Start New Session</a>
+        <a href="history.html" class="pa-link-button">View Session History</a>
+        <a href="index.html" class="pa-link-button pa-btn-secondary">Back to Login</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/summary.js"></script>
+</body>
+
+</html>

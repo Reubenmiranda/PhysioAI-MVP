@@ -1,0 +1,535 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background: #0b1020;
+  color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Login page - centered card layout */
+body.login-page {
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+}
+
+.login-card {
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.login-form label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #020617;
+  color: #f5f5f5;
+  font-size: 1rem;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 2px rgba(79, 140, 255, 0.2);
+}
+
+.login-form button {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #4f8cff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-form button:hover {
+  background: #3b7be8;
+}
+
+.login-register-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-register-link a {
+  color: #4f8cff;
+  text-decoration: none;
+}
+
+.login-register-link a:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #ff6b81;
+  min-height: 1.25em;
+}
+
+/* Signup page - centered card, matches login */
+body.signup-page {
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 1.5rem;
+}
+
+.signup-card {
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.signup-card h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.signup-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.signup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.signup-field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.signup-form input,
+.signup-form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #020617;
+  color: #f5f5f5;
+  font-size: 1rem;
+}
+
+.signup-form select {
+  cursor: pointer;
+}
+
+.signup-form select option {
+  background: #020617;
+  color: #f5f5f5;
+}
+
+.signup-form input:focus,
+.signup-form select:focus {
+  outline: none;
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 2px rgba(79, 140, 255, 0.2);
+}
+
+.signup-form button {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #4f8cff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.signup-form button:hover {
+  background: #3b7be8;
+}
+
+.signup-login-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signup-login-link a {
+  color: #4f8cff;
+  text-decoration: none;
+}
+
+.signup-login-link a:hover {
+  text-decoration: underline;
+}
+
+.signup-error {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #ff6b81;
+  min-height: 1.25em;
+}
+
+@media (max-width: 540px) {
+  .signup-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Auth pages branding - top-left */
+.auth-brand {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  z-index: 10;
+}
+
+/* Session summary stats */
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.summary-stat {
+  background: #101a34;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 100px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+}
+
+.summary-stat-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-stat-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.summary-stat--correct .summary-stat-value {
+  color: #4ade80;
+}
+
+.summary-stat--incorrect .summary-stat-value {
+  color: #f87171;
+}
+
+.summary-stat--total .summary-stat-value {
+  color: #f8fafc;
+}
+
+.pa-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pa-header h1 {
+  font-size: 1.5rem;
+}
+
+.pa-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pa-main {
+  padding: 1.5rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pa-main-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.pa-card {
+  background: #141a33;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pa-card-header {
+  margin-bottom: 1rem;
+}
+
+.pa-card-header h2 {
+  margin-bottom: 0.25rem;
+}
+
+.pa-auth-card {
+  max-width: 400px;
+}
+
+.pa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pa-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.pa-form input[type="text"],
+.pa-form input[type="password"],
+.pa-form input[type="email"],
+.pa-form input[type="number"],
+.pa-form select {
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0f1325;
+  color: #f5f5f5;
+}
+
+.pa-form select {
+  cursor: pointer;
+}
+
+.pa-form select option {
+  background: #0f1325;
+  color: #f5f5f5;
+}
+
+.pa-form input:focus,
+.pa-form select:focus {
+  outline: none;
+  border-color: #4f8cff;
+}
+
+.pa-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.pa-form-actions-right {
+  justify-content: flex-end;
+}
+
+button,
+.pa-link-button {
+  border-radius: 4px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background: #4f8cff;
+  color: #fff;
+  text-decoration: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pa-btn-secondary,
+.pa-link-button.pa-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.pa-message {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+}
+
+.pa-message.error {
+  color: #ff6b81;
+}
+
+.pa-message.success {
+  color: #5ce1a9;
+}
+
+.pa-signup-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pa-signup-link a {
+  color: #4f8cff;
+  text-decoration: none;
+}
+
+.pa-signup-link a:hover {
+  text-decoration: underline;
+}
+
+.pa-exercise-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.pa-exercise-item {
+  background: #1a2140;
+  border-radius: 6px;
+  padding: 0.75rem;
+  border: 1px solid transparent;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pa-exercise-item input[type="checkbox"] {
+  margin-top: 0.2rem;
+}
+
+.pa-exercise-item.selected {
+  border-color: #4f8cff;
+}
+
+.pa-exercise-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.pa-exercise-desc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pa-session-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .pa-session-layout {
+    grid-template-columns: 2fr 1fr;
+    align-items: flex-start;
+  }
+}
+
+.pa-video-card {
+  position: relative;
+}
+
+.pa-video {
+  width: 100%;
+  max-height: 480px;
+  border-radius: 6px;
+  background: #000;
+}
+
+.pa-video-overlay {
+  position: absolute;
+  top: 3.2rem;
+  /* approximate offset under card title */
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  max-height: 480px;
+  pointer-events: none;
+}
+
+.pa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.pa-table th,
+.pa-table td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.pa-table th {
+  background: #101530;
+}
+
+.pa-table tr:nth-child(even) {
+  background: #161c39;
+}
