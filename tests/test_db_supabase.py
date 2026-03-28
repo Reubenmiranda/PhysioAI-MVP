@@ -192,6 +192,11 @@ def test_get_session_by_id_found():
         from db_supabase import get_session_by_id
         result = get_session_by_id("sess-1", "user-1")
     assert result == session_data
+    # Verify both filter arguments were passed correctly
+    first_eq = mock_client.table.return_value.select.return_value.eq
+    first_eq.assert_called_once_with("id", "sess-1")
+    second_eq = first_eq.return_value.eq
+    second_eq.assert_called_once_with("user_id", "user-1")
 
 
 def test_get_session_by_id_not_found():
