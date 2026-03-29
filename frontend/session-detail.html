@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioAI - Session Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "background": "#f7f9fe",
+          "on-surface-variant": "#576068",
+          "primary": "#006a71",
+          "surface-variant": "#dae3ed",
+          "error": "#a83836",
+          "primary-dim": "#005d63",
+          "on-error": "#fff7f6",
+          "primary-fixed": "#96f1fa",
+          "on-surface": "#2b333b",
+          "surface": "#f7f9fe",
+          "on-primary-container": "#005b61",
+          "error-container": "#fa746f",
+          "primary-fixed-dim": "#88e3eb",
+          "surface-dim": "#d2dbe5",
+          "secondary-fixed": "#cce8ea",
+          "outline-variant": "#aab3bc",
+          "secondary-container": "#cce8ea",
+          "on-primary": "#e7fdff",
+          "outline": "#737c84",
+          "surface-tint": "#006a71",
+          "inverse-surface": "#0a0f12",
+          "surface-container": "#e8eef6",
+          "surface-container-high": "#e2e9f1",
+          "on-primary-fixed": "#00474c",
+          "on-background": "#2b333b",
+          "surface-container-highest": "#dae3ed",
+          "surface-container-low": "#eff4fb",
+          "primary-container": "#96f1fa",
+          "surface-bright": "#f7f9fe",
+          "surface-container-lowest": "#ffffff"
+        },
+        fontFamily: {
+          "headline": ["Manrope"],
+          "body": ["Inter"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .signature-gradient {
+    background: linear-gradient(135deg, #006a71 0%, #005d63 100%);
+  }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm shadow-teal-900/5">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-7xl mx-auto">
+  <div class="text-2xl font-bold tracking-tighter text-teal-800 font-headline">PhysioAI</div>
+  <button onclick="history.back()" class="flex items-center gap-2 text-primary font-semibold text-sm hover:bg-primary-container/30 px-4 py-2 rounded-lg transition-colors">
+    <span class="material-symbols-outlined text-lg">arrow_back</span>
+    Back to History
+  </button>
+</div>
+</nav>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Header -->
+<header class="mb-12">
+  <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-2">Session Detail</h1>
+  <p id="session-date" class="text-on-surface-variant text-lg"></p>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+  <!-- Score Card -->
+  <div class="md:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-[0_32px_64px_-12px_rgba(0,106,113,0.06)] relative overflow-hidden group">
+    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+      <span class="material-symbols-outlined text-[120px]" style="font-variation-settings:'FILL' 1;">auto_awesome</span>
+    </div>
+    <div class="relative z-10">
+      <h2 class="font-headline text-2xl font-bold text-on-surface mb-4">Overall Score</h2>
+      <div class="flex items-baseline gap-2 mb-4">
+        <span id="overall-score" class="font-headline text-7xl font-extrabold text-primary leading-none tracking-tighter">0.00 / 100</span>
+      </div>
+    </div>
+  </div>
+  <!-- Total Reps -->
+  <div class="md:col-span-4 space-y-6">
+    <div class="bg-surface-container rounded-xl p-6 flex flex-col justify-between h-full min-h-[180px]">
+      <div>
+        <span class="material-symbols-outlined text-primary mb-4">fitness_center</span>
+        <h3 class="text-on-surface-variant font-medium text-sm uppercase tracking-widest">Total Reps</h3>
+      </div>
+      <div id="total-reps" class="font-headline text-5xl font-extrabold text-on-surface">0</div>
+    </div>
+  </div>
+  <!-- Exercise Breakdown Table -->
+  <div class="md:col-span-12 mt-8">
+    <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+      <div class="px-8 py-6 bg-surface-container-low border-b border-outline-variant/10">
+        <h3 class="font-headline text-xl font-bold text-on-surface">Exercise Breakdown</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table id="detail-table" class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-surface-container-low/50">
+              <th class="px-8 py-4 text-on-surface-variant font-semibold text-sm uppercase tracking-wider">Exercise</th>
+              <th class="px-8 py-4 text-on-surface-variant font-semibold text-sm uppercase tracking-wider text-center">Correct Reps</th>
+              <th class="px-8 py-4 text-on-surface-variant font-semibold text-sm uppercase tracking-wider text-center">Incorrect Reps</th>
+              <th class="px-8 py-4 text-on-surface-variant font-semibold text-sm uppercase tracking-wider text-center">Total Reps</th>
+              <th class="px-8 py-4 text-on-surface-variant font-semibold text-sm uppercase tracking-wider text-center">Posture %</th>
+            </tr>
+          </thead>
+          <tbody id="detail-tbody" class="divide-y divide-outline-variant/10"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Footer Actions -->
+  <div class="md:col-span-12 flex justify-center gap-4 mt-12 mb-8">
+    <a href="exercises.html" class="signature-gradient text-on-primary px-10 py-4 rounded-xl font-headline font-bold uppercase tracking-wider text-sm shadow-xl shadow-teal-900/10 hover:scale-[1.02] active:scale-95 transition-all">
+      Start New Session
+    </a>
+    <button onclick="history.back()" class="border border-primary text-primary px-10 py-4 rounded-xl font-headline font-bold uppercase tracking-wider text-sm hover:bg-primary-container/40 active:scale-95 transition-all">
+      Back to History
+    </button>
+  </div>
+</div>
+</main>
+<script src="js/session-detail.js"></script>
+</body></html>

@@ -56,6 +56,25 @@ function showCameraStatus(text, type = "") {
   el.className = `pa-message ${type}`;
 }
 
+// Track selected exercises and current index for button visibility
+let selectedExercises = [];
+try {
+  const raw = sessionStorage.getItem("physioai_selected_exercises");
+  if (raw) selectedExercises = JSON.parse(raw);
+} catch (e) {}
+
+function updateNextButtonVisibility(currentExerciseName) {
+  const nextBtn = $("next-exercise-btn");
+  if (!nextBtn) return;
+  if (!currentExerciseName || selectedExercises.length === 0) {
+    nextBtn.style.display = "none";
+    return;
+  }
+  const idx = selectedExercises.indexOf(currentExerciseName);
+  const isLast = idx === selectedExercises.length - 1;
+  nextBtn.style.display = isLast ? "none" : "";
+}
+
 async function ensureActiveSession() {
   const { ok, status, data } = await apiGet("/session/status");
   if (!ok) {
@@ -74,6 +93,7 @@ async function ensureActiveSession() {
   }
 
   $("current-exercise").textContent = data.current_exercise || "-";
+  updateNextButtonVisibility(data.current_exercise);
   return data;
 }
 
@@ -172,11 +192,13 @@ async function sendUpdate(landmarks, visibility) {
 
     $("feedback-text").textContent = data.feedback || "";
     $("current-exercise").textContent = data.current_exercise || "-";
+    updateNextButtonVisibility(data.current_exercise);
 
     if (data.metrics) {
       const correct = data.metrics.correct_reps ?? 0;
       const total = data.metrics.total_reps ?? 0;
-      $("rep-stats").textContent = `${correct} / 10 (total: ${total})`;
+      $("rep-correct").textContent = `${correct} / 10`;
+      $("rep-total").textContent = `TOTAL: ${total}`;
 
       // Audio feedback logic
       const correctSound = document.getElementById("correctSound");
@@ -276,6 +298,7 @@ async function handleNextExercise() {
   }
 
   $("current-exercise").textContent = data.current_exercise || "-";
+  updateNextButtonVisibility(data.current_exercise);
   showSessionMessage(data.message || "Moved to next exercise.", "success");
 }
 

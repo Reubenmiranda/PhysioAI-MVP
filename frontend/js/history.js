@@ -72,13 +72,24 @@ document.addEventListener("DOMContentLoaded", () => {
       ? exercises.join(", ")
       : "No exercises recorded";
 
+    card.style.cursor = "pointer";
     card.innerHTML = `
-      <h3>Session</h3>
-      <p><strong>Date &amp; Time:</strong> ${dateText}</p>
-      <p><strong>Overall score:</strong> ${overallScore}</p>
-      <p><strong>Total reps:</strong> ${totalReps}</p>
-      <p><strong>Exercises performed:</strong> ${exercisesText}</p>
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 class="mb-1">Session</h3>
+          <p><strong>Date &amp; Time:</strong> ${dateText}</p>
+          <p><strong>Overall score:</strong> ${overallScore}</p>
+          <p><strong>Total reps:</strong> ${totalReps}</p>
+          <p><strong>Exercises performed:</strong> ${exercisesText}</p>
+        </div>
+        <span style="font-family:'Material Symbols Outlined';font-size:1.5rem;color:#006a71;flex-shrink:0;margin-top:0.25rem;">chevron_right</span>
+      </div>
     `;
+
+    card.addEventListener("click", () => {
+      sessionStorage.setItem("physioai_history_detail", JSON.stringify(session));
+      window.location.href = "session-detail.html";
+    });
 
     container.appendChild(card);
   });
