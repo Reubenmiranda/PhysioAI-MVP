@@ -189,8 +189,10 @@ def register():
     except PostgrestAPIError as e:
         if e.code == "23505":
             return jsonify({"error": "Email already registered"}), 409
+        print(f"PostgrestAPIError during register: {e}", flush=True)
         return jsonify({"error": "Registration failed. Please try again."}), 500
-    except Exception:
+    except Exception as e:
+        print(f"Exception during register: {type(e).__name__}: {e}", flush=True)
         return jsonify({"error": "Registration failed. Please try again."}), 500
 
 
