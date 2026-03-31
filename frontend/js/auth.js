@@ -1,4 +1,4 @@
-const API = "http://localhost:5000";
+const API = API_CONFIG.baseUrl;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("login-form")) {

@@ -37,7 +37,6 @@ load_dotenv(dotenv_path=env_path)
 
 # Import core PhysioAI modules
 try:
-    from utils.pose_module import PoseDetector
     from utils.session_manager import SessionManager
     from utils.exercise_logic import default_exercise_configs
 except ImportError as e:

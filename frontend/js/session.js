@@ -1,5 +1,5 @@
 console.log("session.js loaded");
-const API_BASE = "http://localhost:5000";
+const API_BASE = API_CONFIG.baseUrl;
 
 
 async function apiGet(path) {

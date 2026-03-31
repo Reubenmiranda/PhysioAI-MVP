@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000";
+const API_BASE = API_CONFIG.baseUrl;
 
 const EXERCISE_ICONS = {
   "Standing Hip Flexion":        { icon: "directions_walk",    bg: "#e0f5f5" },

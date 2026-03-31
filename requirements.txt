@@ -1,5 +1,3 @@
-mediapipe>=0.10.0
-opencv-python
 numpy
 
 # Flask Backend
@@ -7,6 +5,7 @@ Flask>=3.0.0
 Flask-CORS>=4.0.0
 python-dotenv>=1.0.0
 werkzeug>=3.0.0
+gunicorn>=21.2.0
 
 # Supabase Database
 supabase>=2.0.0
