@@ -67,7 +67,8 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'dev_secret_key_change_
 CORS(app, supports_credentials=True, origins=[
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    r"https://physio-ai-mvp-kebu.*\.vercel\.app",
+    "https://physio-ai-mvp-kebu.vercel.app",
+    "https://physio-ai-mvp-kebu-qjd830juw-reubenmiranda29-7326s-projects.vercel.app",
 ], allow_headers=["Content-Type"])
 
 # In-memory storage for active sessions
@@ -190,10 +191,10 @@ def register():
         if e.code == "23505":
             return jsonify({"error": "Email already registered"}), 409
         print(f"PostgrestAPIError during register: {e}", flush=True)
-        return jsonify({"error": "Registration failed. Please try again."}), 500
+        return jsonify({"error": f"DB error: {e}"}), 500
     except Exception as e:
         print(f"Exception during register: {type(e).__name__}: {e}", flush=True)
-        return jsonify({"error": "Registration failed. Please try again."}), 500
+        return jsonify({"error": f"{type(e).__name__}: {e}"}), 500
 
 
 @app.route('/login', methods=['POST'])
