@@ -61,11 +61,19 @@ function initSignup() {
         body: JSON.stringify({ email, name, age, gender, password })
       });
 
-      if (!res.ok) throw new Error("Signup failed");
+      if (!res.ok) {
+        let msg = "Signup failed";
+        try {
+          const body = await res.json();
+          if (body.error) msg = body.error;
+        } catch (_) {}
+        document.getElementById("error").innerText = msg;
+        return;
+      }
 
       window.location.href = "index.html";
     } catch (err) {
-      document.getElementById("error").innerText = "Signup failed";
+      document.getElementById("error").innerText = "Network error: " + err.message;
     }
   });
 }
