@@ -67,8 +67,8 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'dev_secret_key_change_
 CORS(app, supports_credentials=True, origins=[
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "https://physio-ai-mvp-kebu.vercel.app"
-])
+    r"https://physio-ai-mvp-kebu.*\.vercel\.app",
+], allow_headers=["Content-Type"])
 
 # In-memory storage for active sessions
 # Format: {user_id (str): SessionManager instance}
