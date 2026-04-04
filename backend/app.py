@@ -63,6 +63,10 @@ app = Flask(__name__)
 # Load Flask secret key from environment
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'dev_secret_key_change_in_production')
 
+# Required for cross-site session cookies (Vercel frontend → Render backend)
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
+
 # Enable CORS for frontend domains
 CORS(app, supports_credentials=True, origins=[
     "http://localhost:5500",
